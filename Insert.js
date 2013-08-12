@@ -23,9 +23,12 @@ var Insert = module.exports = {
                 this.replacString = '';
                 return this;
            },
-    show : function() {
-             console.log(this.replaceString);
-           }
+    get : function() {
+                return this.replaceString;
+           },
+    getRaw: function() {
+                return this.data;
+            }
 };
 
 Insert.find = function(pattern, cb) {
@@ -38,24 +41,14 @@ Insert.find = function(pattern, cb) {
     return that;
 };
 
-Insert.head = function(cb) {
+Insert.footer = function(cb) {
     var that = this;
-    that.replaceString = that.data +'\n'+ this.nStr;
+    that.replaceString = that.data + this.nStr;
     return that;
 };
 
-Insert.footer = function(newString, cb) {
+Insert.head = function(newString, cb) {
     var that = this;
     that.replaceString= this.nStr +'\n'+ that.data;
     return that;
 };
-
-/*
- *  Insert.file(file_path, NStr)
- *        .find(pattern, cb)
- *        .head(cb)
- *        .footer(cb);
-*/
-
-
-

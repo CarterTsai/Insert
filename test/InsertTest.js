@@ -1,10 +1,32 @@
-var insert = require('../Insert.js');
+// References : http://chaijs.com/api/assert/
+var chai = require('chai');
+var assert = chai.assert;
 
-var insertStr = '\naddPath.push([\'/book\', \'get\',book.show$]);\n' +
-'addPath.push([\'/book/:id\', \'delete\',book.del]);\n' +
-'addPath.push([\'/book\', \'post\',book.create]);\n' +
-'addPath.push([\'/book/:id\', \'put\',book.edit]);\n';
+describe('Test mocha  ',function() {
+    var insert = require('../Insert.js'); 
+    var insertStr = "";
+    var patternText = "// [hack]\n";
+    before(function(done) {
+        // Create something before testing
+        // then using done() to finish
+        insertStr = "test"; 
+        insert.file('test/pattern.txt', insertStr);
+        done();
+    });
+    
+    it('should content same as pattern.txt',function() {
+        assert.equal( insert.getRaw() , patternText); 
+    });
 
-insert.file('../pattern.js', insertStr)
-      .head()
-      .show();
+    it('should add \"test\" string at footer of pattern.txt',function() {
+        assert.equal( insert.footer().get() , patternText + insertStr ); 
+    });
+    
+    it('should add \"test\" string at head of pattern.txt',function() {
+        assert.equal( insert.head().get() , insertStr + '\n' + patternText ); 
+    });
+    
+    it('should find \"\/\/ hack \" replace with \"test\" string in pattern.txt',function() {
+        assert.equal( insert.find("// [hack]").get() , insertStr+'\n'); 
+    });
+});
