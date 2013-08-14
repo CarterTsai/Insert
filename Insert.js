@@ -5,9 +5,13 @@ var Insert = module.exports = {
                 var that = this;
                 this.data = grunt.file.read(filePath);
                 this._data = this.data;
+                this._filePath = filePath;
                 this.nStr = newString;
                 this.replacString = '';
                 return this;
+           },
+    write: function() {
+                grunt.file.write(this._filePath, this.replaceString);
            },
     new: function(){
              this._data = this.data;
