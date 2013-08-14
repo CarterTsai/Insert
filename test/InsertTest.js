@@ -15,22 +15,22 @@ describe('Test mocha  ',function() {
     });
     
     it('should content same as pattern.txt',function() {
-        assert.equal( insert.getRaw() , patternText); 
+        assert.equal( insert.new().getRaw() , patternText); 
     });
 
     it('should add \"test\" string at footer of pattern.txt',function() {
-        assert.equal( insert.footer().get() , patternText + insertStr ); 
+        assert.equal( insert.new().footer().get() , patternText + insertStr ); 
     });
     
     it('should add \"test\" string at head of pattern.txt',function() {
-        assert.equal( insert.head().get() , insertStr + '\n' + patternText ); 
+        assert.equal( insert.new().head().get() , insertStr + '\n' + patternText ); 
     });
     
     it('should find \"\/\/ hack \" replace with \"test\" string in pattern.txt',function() {
-        assert.equal( insert.find("// [hack]").get() , insertStr+'\n'); 
+        assert.equal( insert.new().find("// [hack]").get() , insertStr+'\n'); 
     });
 
     it('should find \"\/\/ hack \" replace with \"test1\" string in pattern.txt',function() {
-        assert.equal( insert.find("// [hack]",'test1').get() , insertStr+'1\n'); 
+        assert.equal( insert.new().find("// [hack]",'test1').get() , insertStr+'1\n'); 
     });
 });
