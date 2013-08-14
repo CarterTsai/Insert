@@ -29,4 +29,8 @@ describe('Test mocha  ',function() {
     it('should find \"\/\/ hack \" replace with \"test\" string in pattern.txt',function() {
         assert.equal( insert.find("// [hack]").get() , insertStr+'\n'); 
     });
+
+    it('should find \"\/\/ hack \" replace with \"test1\" string in pattern.txt',function() {
+        assert.equal( insert.find("// [hack]",'test1').get() , insertStr+'1\n'); 
+    });
 });

@@ -1,20 +1,5 @@
 var grunt = require('grunt');
-/*
-var replaceBuf = grunt.file.read('pattern.js');
 
-var pattern = /\/\/ rest path/i;
-var patternStr = '// rest path\n';
-var replaceStr = patternStr +
-                 '    test = require(\'test\'),';
-var pp = replaceBuf.replace(pattern, replaceStr);
-
-var pathStr = '\naddPath.push([\'/book\', \'get\',book.show]);\n' +
-'addPath.push([\'/book/:id\', \'delete\',book.del]);\n' +
-'addPath.push([\'/book\', \'post\',book.create]);\n' +
-'addPath.push([\'/book/:id\', \'put\',book.edit]);\n';
-
-console.log(pp + pathStr);
-*/
 var Insert = module.exports = {
     file : function(filePath, newString) {
                 var that = this;
@@ -31,12 +16,20 @@ var Insert = module.exports = {
             }
 };
 
-Insert.find = function(pattern, cb) {
+Insert.find = function(pattern, replaceStr,cb) {
     var that = this;
-    if (typeof cb == 'function' ) {
-        that.replaceString = that.data.replace(pattern, this.nStr, cb);
+    if(typeof replaceStr !== 'string') {
+        if (typeof cb == 'function' ) {
+            that.replaceString = that.data.replace(pattern, this.nStr, cb);
+        } else {
+            that.replaceString = that.data.replace(pattern, this.nStr);
+        }    
     } else {
-        that.replaceString = that.data.replace(pattern, this.nStr);
+        if (typeof cb == 'function' ) {
+            that.replaceString = that.data.replace(pattern, replaceStr, cb);
+        } else {
+            that.replaceString = that.data.replace(pattern, replaceStr);
+        }
     }
     return that;
 };
